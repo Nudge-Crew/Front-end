@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms'
-
+import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms'
     BrowserModule,
     FormsModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
