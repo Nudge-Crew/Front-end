@@ -2,6 +2,10 @@ import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { dataset } from './data'
+import { HttpClientModule } from '@angular/common/http';
+import { Config } from 'protractor';
+import { ConfigService } from './config/config.service';
+import { ApiService } from './api/api.service';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +23,19 @@ export class AppComponent {
    showLabels: boolean = true;
    isDoughnut: boolean = false;
    legendPosition: string = 'below';
+   config: Config;
  
    colorScheme = {
      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
    };
+
+   
  
-   constructor() {
+   constructor(private apiService: ApiService) {
      Object.assign(this, { dataset });
+     console.log(this.apiService.getStudentData());
+
+
    }
  
    onSelect(data): void {
