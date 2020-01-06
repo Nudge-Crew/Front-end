@@ -33,7 +33,9 @@ export class AppComponent {
  
    constructor(private apiService: ApiService) {
      Object.assign(this, { dataset });
-     console.log(this.apiService.getStudentData());
+      this.apiService.getStudentData().subscribe(result => {
+        console.log(result);
+      })
 
 
    }

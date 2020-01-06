@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
 
   config: Config;
+  result;
   
   constructor(private http: HttpClient) {
    }
@@ -16,8 +17,7 @@ export class ApiService {
 
   getStudentData()
   {
-    console.log(this.config)
-    return this.http.get("https://postman-echo.com/get?foo1=bar1&foo2=bar2")
+    return this.http.get("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
   }
 
 
