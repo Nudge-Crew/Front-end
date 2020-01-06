@@ -33,6 +33,8 @@ export class AppComponent {
  
    constructor(private apiService: ApiService) {
      Object.assign(this, { dataset });
+     //Before accessing web page add the acces token from canvas to local storage with key Canvas
+     console.log(localStorage.getItem('Canvas'));
       this.apiService.getStudentData().subscribe(result => {
         console.log(result);
       })
