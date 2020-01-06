@@ -10,11 +10,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApiService {
 
   config: Config;
-  httpOptions = {
-  headers: new HttpHeaders({
+  headerOptions = new HttpHeaders({
     "X-Canvas-Authorization": "Bearer " + localStorage.getItem('Canvas')
-  })
-}
+  });
+
   constructor(private http: HttpClient) {
   
   }
@@ -23,7 +22,13 @@ export class ApiService {
   getStudentData()
   {
    
-    return this.http.get("https://us-central1-nudge-crew.cloudfunctions.net/canvas_api", this.httpOptions);
+    let options = {
+      headers: this.headerOptions,
+      params: {
+        "endpoint": "/courses"
+      }
+    }
+    return this.http.get("https://us-central1-nudge-crew.cloudfunctions.net/canvas_api", options);
   }
 
 
