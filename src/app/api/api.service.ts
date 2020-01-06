@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
 import { Config } from 'protractor';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,20 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
 
   config: Config;
-  result;
-  
+  httpOptions = {
+  headers: new HttpHeaders({
+    "X-Canvas-Authorization": "Bearer " + localStorage.getItem('Canvas')
+  })
+}
   constructor(private http: HttpClient) {
-   }
+  
+  }
 
 
   getStudentData()
   {
-    return this.http.get("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
+   
+    return this.http.get("https://us-central1-nudge-crew.cloudfunctions.net/canvas_api", this.httpOptions);
   }
 
 
