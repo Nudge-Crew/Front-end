@@ -15,13 +15,12 @@ export class ApiService {
   });
 
   constructor(private http: HttpClient) {
-  
+
   }
 
 
   getStudentData()
   {
-   
     let options = {
       headers: this.headerOptions,
       params: {
@@ -30,6 +29,4 @@ export class ApiService {
     }
     return this.http.get("https://us-central1-nudge-crew.cloudfunctions.net/canvas_api", options);
   }
-
-
 }
