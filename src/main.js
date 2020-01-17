@@ -6,9 +6,13 @@ import '@components/_globals'
 import '@src/addons/element'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/reset.css'
+import Axios from 'axios'
+Axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
+
+Vue.prototype.$http = Axios;
 
 // Don't warn about using the dev version of Vue in development.
-Vue.config.productionTip = process.env.NODE_ENV === 'production'
+Vue.config.productionTip = process.env.NODE_ENV === 'production';
 
 // If running inside Cypress...
 if (process.env.VUE_APP_TEST === 'e2e') {
@@ -20,7 +24,7 @@ const app = new Vue({
   router,
   store,
   render: (h) => h(App),
-}).$mount('#app')
+}).$mount('#app');
 
 // If running e2e tests...
 if (process.env.VUE_APP_TEST === 'e2e') {
