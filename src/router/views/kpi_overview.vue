@@ -2,7 +2,7 @@
     <Layout>
         <el-row :gutter="20">
             <el-col :span="12">
-               
+
             </el-col>
         </el-row>
     </Layout>

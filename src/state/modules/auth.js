@@ -8,12 +8,12 @@ export const state = {
 
 export const mutations = {
   SET_AUTH_TOKEN(state, value) {
-    state.authToken = value
-    saveState('canvas.access_token', value)
+    state.authToken = value;
+    saveState('canvas.access_token', value);
     setDefaultAuthHeaders(state)
   },
   SET_SERVER_URL(state, value) {
-    state.serverUrl = value
+    state.serverUrl = value;
     saveState('canvas.serverUrl', value)
   },
   SET_CURRENT_USER(state, newValue) {
@@ -39,8 +39,8 @@ export const actions = {
 
   // Logs in the current user.
   logIn({ commit, dispatch, getters }, { authToken } = {}) {
-    commit('SET_AUTH_TOKEN', authToken)
-    commit('SET_SERVER_URL', )
+    commit('SET_AUTH_TOKEN', authToken);
+    // commit('SET_SERVER_URL', );
 
     return true
   },
