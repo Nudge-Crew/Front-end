@@ -10,6 +10,22 @@ export default [
     path: '/emotion',
     name: 'emotion',
     component: () => lazyLoadView(import('@views/emotion.vue')),
+    meta: {
+      beforeResolve(routeTo, routeFrom, next) {
+        if (store.getters['auth/loggedIn']) {
+
+          store.dispatch('emotions/fetchItems').then((res) => {
+            next()
+          }).catch((err) => {
+            console.log(err)
+            next(false)
+          })
+        } else {
+          // Continue to the login page
+          next(false)
+        }
+      },
+    },
   },
   {
     path: '/kpi/overview',

@@ -5,7 +5,11 @@ export const state = {
     selected: null
 };
 
-export const getters = {};
+export const getters = {
+    getItems() {
+        return state.items
+    },
+};
 
 export const mutations = {
     ADD_ITEM(state, value) {
