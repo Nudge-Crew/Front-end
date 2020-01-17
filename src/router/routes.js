@@ -6,7 +6,13 @@ export default [
     name: 'home',
     meta: {
       beforeResolve(routeTo, routeFrom, next) {
-        next({ name: 'kpi_overview'})
+        if (store.getters['auth/loggedIn']) {
+
+          next({ name: 'kpi_overview'})
+        } else {
+          next({ name: 'login'})
+        }
+
       },
     },
   },
@@ -25,8 +31,7 @@ export default [
             next(false)
           })
         } else {
-          // Continue to the login page
-          next(false)
+          next({ name: 'login'})
         }
       },
     },
@@ -42,7 +47,7 @@ export default [
             next()
           }).catch((err) => {
             console.log(err)
-            next(false)
+            next({ name: 'login'})
           })
         } else {
           next(false)
@@ -54,18 +59,6 @@ export default [
     path: '/login',
     name: 'login',
     component: () => lazyLoadView(import('@views/login.vue')),
-    meta: {
-      beforeResolve(routeTo, routeFrom, next) {
-        // If the user is already logged in
-        if (store.getters['auth/loggedIn']) {
-          // Redirect to the home page instead
-          next({ name: 'home' })
-        } else {
-          // Continue to the login page
-          next()
-        }
-      },
-    },
   },
   {
     path: '/404',

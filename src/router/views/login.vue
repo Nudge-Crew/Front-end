@@ -1,3 +1,17 @@
+<template>
+  <Layout>
+    <el-form ref="form" :model="form" label-width="120px">
+      <el-form-item label="Access Token">
+        <el-input type="password" autocomplete="off" v-model="form.access_token"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">Save Access Token</el-button>
+        <el-button>Cancel</el-button>
+      </el-form-item>
+    </el-form>
+  </Layout>
+</template>
+
 <script>
 import Layout from '@layouts/main.vue'
 import { authMethods } from '@state/helpers'
@@ -11,33 +25,23 @@ export default {
   components: { Layout },
   data() {
     return {
-      username: '',
-      password: '',
+      form: {
+        access_token: null
+      },
       authError: null,
       tryingToLogIn: false,
     }
-  },
-  computed: {
-    placeholders() {
-      return process.env.NODE_ENV === 'production'
-        ? {}
-        : {
-            username: 'Use "admin" to log in with the mock API',
-            password: 'Use "password" to log in with the mock API',
-          }
-    },
   },
   methods: {
     ...authMethods,
     // Try to log the user in with the username
     // and password they provided.
-    tryToLogIn() {
+    onSubmit() {
       this.tryingToLogIn = true
       // Reset the authError if it existed.
       this.authError = null
       return this.logIn({
-        username: this.username,
-        password: this.password,
+        access_token: this.form.access_token
       })
         .then((token) => {
           this.tryingToLogIn = false
@@ -54,37 +58,8 @@ export default {
 }
 </script>
 
-<template>
-  <Layout>
-    <form :class="$style.form" @submit.prevent="tryToLogIn">
-      <BaseInputText
-        v-model="username"
-        name="username"
-        :placeholder="placeholders.username"
-      />
-      <BaseInputText
-        v-model="password"
-        name="password"
-        type="password"
-        :placeholder="placeholders.password"
-      />
-      <BaseButton :disabled="tryingToLogIn" type="submit">
-        <BaseIcon v-if="tryingToLogIn" name="sync" spin />
-        <span v-else>
-          Log in
-        </span>
-      </BaseButton>
-      <p v-if="authError">
-        There was an error logging in to your account.
-      </p>
-    </form>
-  </Layout>
-</template>
+
 
 <style lang="scss" module>
-@import '@design';
 
-.form {
-  text-align: center;
-}
 </style>

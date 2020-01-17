@@ -39,9 +39,8 @@ export const actions = {
   },
 
   // Logs in the current user.
-  logIn({ commit, dispatch, getters }, { authToken } = {}) {
-    commit('SET_AUTH_TOKEN', authToken);
-    // commit('SET_SERVER_URL', );
+  logIn({ commit, dispatch, getters }, { access_token } = {}) {
+    commit('SET_AUTH_TOKEN', access_token);
 
     return true
   },
@@ -56,7 +55,7 @@ function getSavedState(key) {
 }
 
 function saveState(key, state) {
-  window.localStorage.setItem(key, JSON.stringify(state))
+  window.localStorage.setItem(key, state)
 }
 
 function setDefaultAuthHeaders(state) {
