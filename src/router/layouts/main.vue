@@ -7,18 +7,15 @@ export default {
 </script>
 
 <template>
-  <div :class="$style.container">
-    <NavBar />
-    <slot />
-  </div>
+  <el-container>
+    <NavBar></NavBar>
+    <el-main>
+      <slot />
+    </el-main>
+    <el-footer></el-footer>
+  </el-container>
 </template>
 
 <style lang="scss" module>
-@import '@design';
 
-.container {
-  min-width: $size-content-width-min;
-  max-width: $size-content-width-max;
-  margin: 0 auto;
-}
 </style>

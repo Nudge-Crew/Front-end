@@ -1,61 +1,37 @@
-<script>
-import { authComputed } from '@state/helpers'
-import NavBarRoutes from './nav-bar-routes.vue'
+<template>
+  <el-header>
+    <el-menu
+            class="el-menu-demo"
+            mode="horizontal"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+            router>
+      <el-submenu index="2">
+        <template slot="title">Student Helper</template>
+        <el-menu-item index="2-1" :route="{ name: 'kpi_overview' }">Overview</el-menu-item>
+        <el-menu-item index="2-2" :route="{ name: 'student_kpi' }">KPI</el-menu-item>
+        <el-menu-item index="2-3" :route="{ name: 'student_cpi' }">CPI</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="4" :route="{ name: 'emotion' }">Emotion API</el-menu-item>
+      <el-menu-item index="5" :route="{ name: 'login' }">Access Token</el-menu-item>
+    </el-menu>
+  </el-header>
+</template>
 
+<script>
 export default {
-  components: { NavBarRoutes },
   data() {
     return {
-      persistentNavRoutes: [
-        {
-          name: 'home',
-          title: 'Home',
-        },
-      ],
-      loggedInNavRoutes: [
-        {
-          name: 'profile',
-          title: () => 'Logged in as ' + this.currentUser.name,
-        },
-        {
-          name: 'logout',
-          title: 'Log out',
-        },
-      ],
-      loggedOutNavRoutes: [
-        {
-          name: 'login',
-          title: 'Log in',
-        },
-      ],
+
     }
   },
   computed: {
-    ...authComputed,
+
   },
 }
 </script>
 
-<template>
-  <ul :class="$style.container">
-    <NavBarRoutes :routes="persistentNavRoutes" />
-    <NavBarRoutes v-if="loggedIn" :routes="loggedInNavRoutes" />
-    <NavBarRoutes v-else :routes="loggedOutNavRoutes" />
-  </ul>
-</template>
-
 <style lang="scss" module>
-@import '@design';
 
-.container {
-  padding: 0;
-  margin: 0 0 $size-grid-padding;
-  text-align: center;
-  list-style-type: none;
-
-  > li {
-    display: inline-block;
-    margin-right: $size-grid-padding;
-  }
-}
 </style>

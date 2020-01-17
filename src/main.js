@@ -3,6 +3,9 @@ import App from './app.vue'
 import router from '@router'
 import store from '@state/store'
 import '@components/_globals'
+import '@src/addons/element'
+import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/reset.css'
 
 // Don't warn about using the dev version of Vue in development.
 Vue.config.productionTip = process.env.NODE_ENV === 'production'

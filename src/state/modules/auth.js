@@ -1,79 +1,57 @@
 import axios from 'axios'
 
 export const state = {
+  authToken: getSavedState('canvas.access_token'),
+  serverUrl: getSavedState('canvas.serverUrl'),
   currentUser: getSavedState('auth.currentUser'),
-}
+};
 
 export const mutations = {
-  SET_CURRENT_USER(state, newValue) {
-    state.currentUser = newValue
-    saveState('auth.currentUser', newValue)
+  SET_AUTH_TOKEN(state, value) {
+    state.authToken = value
+    saveState('canvas.access_token', value)
     setDefaultAuthHeaders(state)
   },
-}
+  SET_SERVER_URL(state, value) {
+    state.serverUrl = value
+    saveState('canvas.serverUrl', value)
+  },
+  SET_CURRENT_USER(state, newValue) {
+    state.currentUser = newValue;
+    saveState('auth.currentUser', newValue);
+    setDefaultAuthHeaders(state)
+  },
+};
 
 export const getters = {
   // Whether the user is currently logged in.
   loggedIn(state) {
-    return !!state.currentUser
+    return !!state.authToken
   },
-}
+};
 
 export const actions = {
   // This is automatically run in `src/state/store.js` when the app
   // starts, along with any other actions named `init` in other modules.
   init({ state, dispatch }) {
-    setDefaultAuthHeaders(state)
-    dispatch('validate')
+    setDefaultAuthHeaders(state);
   },
 
   // Logs in the current user.
-  logIn({ commit, dispatch, getters }, { username, password } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
+  logIn({ commit, dispatch, getters }, { authToken } = {}) {
+    commit('SET_AUTH_TOKEN', authToken)
+    commit('SET_SERVER_URL', )
 
-    return axios
-      .post('/api/session', { username, password })
-      .then((response) => {
-        const user = response.data
-        commit('SET_CURRENT_USER', user)
-        return user
-      })
+    return true
   },
-
-  // Logs out the current user.
-  logOut({ commit }) {
-    commit('SET_CURRENT_USER', null)
-  },
-
-  // Validates the current user's token and refreshes it
-  // with new data from the API.
-  validate({ commit, state }) {
-    if (!state.currentUser) return Promise.resolve(null)
-
-    return axios
-      .get('/api/session')
-      .then((response) => {
-        const user = response.data
-        commit('SET_CURRENT_USER', user)
-        return user
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          commit('SET_CURRENT_USER', null)
-        } else {
-          console.warn(error)
-        }
-        return null
-      })
-  },
-}
+};
 
 // ===
 // Private helpers
 // ===
 
 function getSavedState(key) {
-  return JSON.parse(window.localStorage.getItem(key))
+  return window.localStorage.getItem(key)
 }
 
 function saveState(key, state) {
@@ -81,7 +59,7 @@ function saveState(key, state) {
 }
 
 function setDefaultAuthHeaders(state) {
-  axios.defaults.headers.common.Authorization = state.currentUser
-    ? state.currentUser.token
+  axios.defaults.headers.common['X-Canvas-Authorization'] = state.authToken
+    ? state.authToken
     : ''
 }
