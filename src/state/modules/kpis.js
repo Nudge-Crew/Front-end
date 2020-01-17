@@ -25,7 +25,6 @@ export const mutations = {
 
 export const actions = {
     fetchItems({ commit } ) {
-        console.log(axios.defaults.baseURL)
         return axios.get('getStudentExpertRequests').then((res) => {
             commit('SET_ITEMS', res.data);
 

@@ -4,7 +4,11 @@ export default [
   {
     path: '/',
     name: 'home',
-    component: () => lazyLoadView(import('@views/home.vue')),
+    meta: {
+      beforeResolve(routeTo, routeFrom, next) {
+        next({ name: 'kpi_overview'})
+      },
+    },
   },
   {
     path: '/emotion',
