@@ -30,6 +30,6 @@ module.exports = {
   // Configure Webpack's dev server.
   // https://cli.vuejs.org/guide/cli-service.html
   devServer: {
-    proxy: 'https://europe-west1-nudge-crew.cloudfunctions.net/'
+    proxy: process.env.API_BASE_URL
   },
 }
