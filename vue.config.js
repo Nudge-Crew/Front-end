@@ -1,4 +1,4 @@
-const appConfig = require('./src/app.config')
+const appConfig = require('./src/app.config');
 
 /** @type import('@vue/cli-service').ProjectOptions */
 module.exports = {
@@ -6,14 +6,14 @@ module.exports = {
   chainWebpack(config) {
     // We provide the app's title in Webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    config.set('name', appConfig.title)
+    config.set('name', appConfig.title);
 
     // Set up all the aliases we use in our app.
-    config.resolve.alias.clear().merge(require('./aliases.config').webpack)
+    config.resolve.alias.clear().merge(require('./aliases.config').webpack);
 
     // Don't allow importing .vue files without the extension, as
     // it's necessary for some Vetur autocompletions.
-    config.resolve.extensions.delete('.vue')
+    config.resolve.extensions.delete('.vue');
 
     // Only enable performance hints for production builds,
     // outside of tests.
@@ -30,6 +30,6 @@ module.exports = {
   // Configure Webpack's dev server.
   // https://cli.vuejs.org/guide/cli-service.html
   devServer: {
-    proxy: process.env.API_BASE_URL
+    proxy: process.env.VUE_APP_API_BASE_URL
   },
-}
+};
