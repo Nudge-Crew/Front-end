@@ -14,7 +14,7 @@ export default [
       beforeResolve(routeTo, routeFrom, next) {
         if (store.getters['auth/loggedIn']) {
 
-          store.dispatch('emotions/fetchItems').then((res) => {
+            store.dispatch('emotions/fetchItems').then((res) => {
             next()
           }).catch((err) => {
             console.log(err)
@@ -28,9 +28,23 @@ export default [
     },
   },
   {
-    path: '/kpi/overview',
+    path: '/kpi',
     name: 'kpi_overview',
-    component: () => lazyLoadView(import('@views/kpi_overview.vue')),
+    component: () => lazyLoadView(import('@views/kpis.vue')),
+    meta: {
+      beforeResolve(routeTo, routeFrom, next) {
+        if (store.getters['auth/loggedIn']) {
+            store.dispatch('kpis/fetchItems').then((res) => {
+            next()
+          }).catch((err) => {
+            console.log(err)
+            next(false)
+          })
+        } else {
+          next(false)
+        }
+      },
+    },
   },
   {
     path: '/login',

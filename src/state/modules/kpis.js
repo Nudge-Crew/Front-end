@@ -5,7 +5,11 @@ export const state = {
     selected: null
 };
 
-export const getters = {};
+export const getters = {
+    getItems() {
+        return state.items
+    },
+};
 
 export const mutations = {
     ADD_ITEM(state, value) {
@@ -20,7 +24,7 @@ export const mutations = {
 };
 
 export const actions = {
-    fetchItems({ commit, state, rootState } ) {
+    fetchItems({ commit } ) {
         return axios.get('getStudentExpertRequests').then((res) => {
             commit('SET_ITEMS', res.data);
 
